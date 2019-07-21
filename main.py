@@ -7,6 +7,10 @@ from sys import argv
 
 
 def pad(data, n_pad):
+    """
+    下記のコードをコピペした上でリファクタリング
+    https://stackoverflow.com/questions/32468349/how-to-add-silence-in-front-of-a-wav-file/32477869#32477869
+    """
     shape = (n_pad,) + data.shape[1:]
     if shape[0] > 0:
         p = np.zeros(shape, np.int16)  # キャストが無いと音声再生不可
