@@ -8,7 +8,7 @@ from sys import argv
 
 def pad(data, n_pad):
     """
-    下記のコードをコピペした上でリファクタリング
+    下記のコードを動くように修正
     https://stackoverflow.com/questions/32468349/how-to-add-silence-in-front-of-a-wav-file/32477869#32477869
     """
     shape = (n_pad,) + data.shape[1:]
