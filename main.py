@@ -33,8 +33,8 @@ if __name__ == "__main__":
     if len(argv) != 3:
         print("Wrong arguments.")
     else:
-        n_secs = int(argv[1])
         text = argv[2]
+        n_secs = int(argv[1])
 
         dest = '%s__%dsecs.wav' % (text, n_secs)
         tts(text, dest)
