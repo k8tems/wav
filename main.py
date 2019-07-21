@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 from __future__ import print_function, division
-import scipy.io.wavfile as wavf
+import argparse
 import numpy as np
-from sys import argv
 import comtypes.client
+import scipy.io.wavfile as wavf
 
 
 def tts(text, dest):
@@ -31,16 +31,22 @@ def pad(data, n_pad):
         return data
 
 
-if __name__ == "__main__":
-    if len(argv) != 3:
-        print('Wrong arguments.')
-    else:
-        text = argv[1]
-        n_secs = int(argv[2])
-        dest = '%s__%dsecs.wav' % (text, n_secs)
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('text', type=str)
+    parser.add_argument('seconds', type=int)
+    return parser.parse_args()
 
-        tts(text, dest)
-        sample_rate, in_data = wavf.read(dest)
-        print('Padding with %s seconds of silence' % str(n_secs))
-        out_data = pad(in_data, int(sample_rate * n_secs))
-        wavf.write(dest, sample_rate, out_data)
+
+if __name__ == "__main__":
+    args = get_args()
+
+    text = args.text
+    n_secs = args.seconds
+    dest = '%s__%dsecs.wav' % (text, n_secs)
+
+    tts(text, dest)
+    sample_rate, in_data = wavf.read(dest)
+    print('Padding with %s seconds of silence' % str(n_secs))
+    out_data = pad(in_data, int(sample_rate * n_secs))
+    wavf.write(dest, sample_rate, out_data)
