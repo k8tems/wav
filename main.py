@@ -33,7 +33,7 @@ def pad(data, n_pad):
 
 if __name__ == "__main__":
     if len(argv) != 3:
-        print("Wrong arguments.")
+        print('Wrong arguments.')
     else:
         text = argv[1]
         n_secs = int(argv[2])
@@ -41,6 +41,6 @@ if __name__ == "__main__":
 
         tts(text, dest)
         sample_rate, in_data = wavf.read(dest)
-        print("Padding with %s seconds of silence" % str(n_secs))
+        print('Padding with %s seconds of silence' % str(n_secs))
         out_data = pad(in_data, int(sample_rate * n_secs))
         wavf.write(dest, sample_rate, out_data)
