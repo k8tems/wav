@@ -6,7 +6,7 @@ import numpy as np
 from sys import argv
 
 
-def pad_audio(data, n_pad):
+def pad(data, n_pad):
     shape = (n_pad,) + data.shape[1:]
     if shape[0] > 0:
         p = np.zeros(shape, np.int16)  # キャストが無いと音声再生不可
@@ -25,5 +25,5 @@ if __name__ == "__main__":
         n_secs = float(argv[3])
         sample_rate, in_data = wavf.read(in_wav)
         print("Padding with %s seconds of silence" % str(n_secs))
-        out_data = pad_audio(in_data, int(sample_rate * n_secs))
+        out_data = pad(in_data, int(sample_rate * n_secs))
         wavf.write(out_wav, sample_rate, out_data)
