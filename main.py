@@ -8,6 +8,9 @@ import comtypes.client
 
 
 def tts(text, dest):
+    """
+    https://stackoverflow.com/questions/49871252/saving-text-to-speech-python
+    """
     speak = comtypes.client.CreateObject("SAPI.SpVoice")
     filestream = comtypes.client.CreateObject("SAPI.spFileStream")
     filestream.open(dest, 3, False)
@@ -18,7 +21,6 @@ def tts(text, dest):
 
 def pad(data, n_pad):
     """
-    下記のコードを動くように修正
     https://stackoverflow.com/questions/32468349/how-to-add-silence-in-front-of-a-wav-file/32477869#32477869
     """
     shape = (n_pad,) + data.shape[1:]
