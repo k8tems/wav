@@ -44,6 +44,5 @@ if __name__ == "__main__":
 
     tts(args.text, dest)
     sample_rate, in_data = wavf.read(dest)
-    print('Padding with %d seconds of silence' % args.seconds)
     out_data = pad(in_data, int(sample_rate * args.seconds))
     wavf.write(dest, sample_rate, out_data)
