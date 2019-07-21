@@ -4,6 +4,16 @@ from __future__ import print_function, division
 import scipy.io.wavfile as wavf
 import numpy as np
 from sys import argv
+import comtypes.client
+
+
+def tts(text, dest):
+    speak = comtypes.client.CreateObject("SAPI.SpVoice")
+    filestream = comtypes.client.CreateObject("SAPI.spFileStream")
+    filestream.open(dest, 3, False)
+    speak.AudioOutputStream = filestream
+    speak.Speak(text)
+    filestream.close()
 
 
 def pad(data, n_pad):
@@ -20,14 +30,16 @@ def pad(data, n_pad):
 
 
 if __name__ == "__main__":
-    if len(argv) != 4:
+    if len(argv) != 2:
         print("Wrong arguments.")
-        print("Use: %s in.wav out.wav target_time_s" % argv[0])
     else:
-        in_wav = argv[1]
-        out_wav = argv[2]
-        n_secs = float(argv[3])
-        sample_rate, in_data = wavf.read(in_wav)
+        n_secs = int(argv[1])
+
+        text = 'スタンス'
+        dest = '%s__%dsecs.wav' % (text, n_secs)
+        tts(text, dest)
+
+        sample_rate, in_data = wavf.read(dest)
         print("Padding with %s seconds of silence" % str(n_secs))
         out_data = pad(in_data, int(sample_rate * n_secs))
-        wavf.write(out_wav, sample_rate, out_data)
+        wavf.write(dest, sample_rate, out_data)
