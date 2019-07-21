@@ -40,13 +40,10 @@ def get_args():
 
 if __name__ == "__main__":
     args = get_args()
+    dest = '%s__%dsecs.wav' % (args.text, args.seconds)
 
-    text = args.text
-    n_secs = args.seconds
-    dest = '%s__%dsecs.wav' % (text, n_secs)
-
-    tts(text, dest)
+    tts(args.text, dest)
     sample_rate, in_data = wavf.read(dest)
-    print('Padding with %s seconds of silence' % str(n_secs))
-    out_data = pad(in_data, int(sample_rate * n_secs))
+    print('Padding with %d seconds of silence' % args.seconds)
+    out_data = pad(in_data, int(sample_rate * args.seconds))
     wavf.write(dest, sample_rate, out_data)
