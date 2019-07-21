@@ -35,10 +35,9 @@ if __name__ == "__main__":
     else:
         text = argv[1]
         n_secs = int(argv[2])
-
         dest = '%s__%dsecs.wav' % (text, n_secs)
-        tts(text, dest)
 
+        tts(text, dest)
         sample_rate, in_data = wavf.read(dest)
         print("Padding with %s seconds of silence" % str(n_secs))
         out_data = pad(in_data, int(sample_rate * n_secs))
